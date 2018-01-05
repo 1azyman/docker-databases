@@ -59,6 +59,12 @@ services:
       - "1433:1433/tcp"
     environment:
       - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
       - SA_PASSWORD=qwer1234X!
+      - MSSQL_MEMORY_LIMIT_MB=2048
     volumes:
-      - "./sqlserver/mssql:/var/opt/mssql"
+      - "mssql:/var/opt/mssql"
+#      - "./sqlserver/mssql:/var/opt/mssql" not supported at this time
+
+volumes:
+  mssql:
