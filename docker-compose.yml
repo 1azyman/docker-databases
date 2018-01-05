@@ -1,0 +1,64 @@
+version: '2'
+
+services:
+  ldap:
+    image: actualys/ldap
+    ports:
+      - "1389:389/tcp"
+    environment:
+      - LDAP_DOMAIN=example.com
+      - LDAP_PASSWORD=admin
+    volumes:
+      - "./openldap/ldap:/var/lib/ldap"
+      - "./openldap/slapd.d:/etc/ldap/slapd.d"
+  mysql:
+    image: mysql:5.7.20
+    ports:
+      - "3306:3306/tcp"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=midpoint
+      - MYSQL_USER=midpoint
+      - MYSQL_PASSWORD=midpoint
+    volumes:
+      - "./mysql/conf.d:/etc/mysql/conf.d"
+      - "./mysql/mysql:/var/lib/mysql"
+  postgres:
+    image: postgres:9.5.10
+    ports:
+      - "5432:5432/tcp"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "./postgresql/data:/var/lib/postgresql/data"
+  oracle:
+    image: sath89/oracle-12c
+    ports:
+      - "1521:1521/tcp"
+      - "18080:8080/tcp"
+    environment:
+      - DBCA_TOTAL_MEMORY=2048
+      - WEB_CONSOLE=true
+    volumes:
+      - "./oracle/oracle:/u01/app/oracle"
+    # hostname: localhost
+    # port: 1521
+    # sid: xe
+    # service name: xe
+    # username: system
+    # password: oracle
+    # ---
+    # http://localhost:8080/apex
+    # workspace: INTERNAL
+    # user: ADMIN
+    # password: 0Racle$
+  sqlserver:
+    image: microsoft/mssql-server-linux:2017-CU2
+    ports:
+      - "1433:1433/tcp"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=qwer1234X!
+    volumes:
+      - "./sqlserver/mssql:/var/opt/mssql"
