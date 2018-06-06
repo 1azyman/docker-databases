@@ -63,6 +63,7 @@ services:
       - WEB_CONSOLE=true
     volumes:
       - "./oracle/oracle:/u01/app/oracle"
+#      - "oracle:/u01/app/oracle"
     # hostname: localhost
     # port: 1521
     # sid: xe
@@ -86,6 +87,19 @@ services:
     volumes:
       - "mssql:/var/opt/mssql"
 #      - "./sqlserver/mssql:/var/opt/mssql" not supported at this time
+  mariadb:
+    image: mariadb:10.0.28
+    ports:
+      - "3306:3306/tcp"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=midpoint
+      - MYSQL_USER=midpoint
+      - MYSQL_PASSWORD=midpoint
+    volumes:
+      - "./mariadb_10_0/conf.d:/etc/mysql/conf.d"
+      - "./mariadb_10_0/mysql:/var/lib/mysql"
 
 volumes:
   mssql:
+#  oracle:
