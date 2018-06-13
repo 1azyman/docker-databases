@@ -53,6 +53,15 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - "./postgresql/data:/var/lib/postgresql/data"
+  postgres10:
+    image: postgres:10.4
+    ports:
+      - "5432:5432/tcp"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "./postgresql_10/data:/var/lib/postgresql/data"
   oracle:
     image: sath89/oracle-12c
     ports:
