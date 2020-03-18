@@ -83,8 +83,17 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - "./postgresql_11/data:/var/lib/postgresql/data"
+  postgres12:
+    image: postgres:12.1
+    ports:
+      - "5432:5432/tcp"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "./postgresql_12/data:/var/lib/postgresql/data"
   oracle:
-    image: sath89/oracle-12c
+    image: truevoly/oracle-12c
     ports:
       - "1521:1521/tcp"
       - "18080:8080/tcp"
@@ -136,6 +145,26 @@ services:
       - "8443:8443/tcp"
     volumes:
       - "./cas/cas:/etc/cas"
+  ldap1:
+    image: actualys/ldap:1.1
+    ports:
+      - "1389:389/tcp"
+    environment:
+      - LDAP_DOMAIN=example.com
+      - LDAP_PASSWORD=admin
+    volumes:
+      - "./openldap1/ldap:/var/lib/ldap"
+      - "./openldap1/slapd.d:/etc/ldap/slapd.d"
+  ldap2:
+    image: actualys/ldap:1.1
+    ports:
+      - "2389:389/tcp"
+    environment:
+      - LDAP_DOMAIN=example.com
+      - LDAP_PASSWORD=admin
+    volumes:
+      - "./openldap2/ldap:/var/lib/ldap"
+      - "./openldap2/slapd.d:/etc/ldap/slapd.d"
 volumes:
   mssql:
 #  oracle:
