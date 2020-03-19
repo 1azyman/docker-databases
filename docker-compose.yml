@@ -20,30 +20,6 @@ services:
 #
 #./slapdconf add-module sssvlv
 #./slapdconf add-overlay dc=example,dc=com sssvlv
-  mysql:
-    image: mysql:5.7.20
-    ports:
-      - "3306:3306/tcp"
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=midpoint
-      - MYSQL_USER=midpoint
-      - MYSQL_PASSWORD=midpoint
-    volumes:
-      - "./mysql/conf.d:/etc/mysql/conf.d"
-      - "./mysql/mysql:/var/lib/mysql"
-  mysql56:
-    image: mysql:5.6.39
-    ports:
-      - "3306:3306/tcp"
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=midpoint
-      - MYSQL_USER=midpoint
-      - MYSQL_PASSWORD=midpoint
-    volumes:
-      - "./mysql_5_6/conf.d:/etc/mysql/conf.d"
-      - "./mysql_5_6/mysql:/var/lib/mysql"
   mysql8:
     image: mysql:8.0.12
     ports:
@@ -56,33 +32,6 @@ services:
     volumes:
     - "./mysql_8/conf.d:/etc/mysql/conf.d"
     - "./mysql_8/mysql:/var/lib/mysql"
-  postgres:
-    image: postgres:9.5.10
-    ports:
-      - "5432:5432/tcp"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - "./postgresql/data:/var/lib/postgresql/data"
-  postgres10:
-    image: postgres:10.4
-    ports:
-      - "5432:5432/tcp"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - "./postgresql_10/data:/var/lib/postgresql/data"
-  postgres11:
-    image: postgres:11.1
-    ports:
-      - "5432:5432/tcp"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - "./postgresql_11/data:/var/lib/postgresql/data"
   postgres12:
     image: postgres:12.1
     ports:
