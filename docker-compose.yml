@@ -114,6 +114,15 @@ services:
     volumes:
       - "./openldap2/ldap:/var/lib/ldap"
       - "./openldap2/slapd.d:/etc/ldap/slapd.d"
+  dynamodb:
+    command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
 volumes:
   mssql:
 #  oracle:
