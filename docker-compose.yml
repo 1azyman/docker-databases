@@ -41,6 +41,15 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - "./postgresql_12/data:/var/lib/postgresql/data"
+  postgres13:
+    image: postgres:13.2
+    ports:
+      - "5432:5432/tcp"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "./postgresql_13/data:/var/lib/postgresql/data"
   oracle:
     image: truevoly/oracle-12c
     ports:
