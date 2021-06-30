@@ -11,27 +11,27 @@ services:
     volumes:
       - "./openldap/ldap:/var/lib/ldap"
       - "./openldap/slapd.d:/etc/ldap/slapd.d"
-#apt-get install slapd ldap-utils wget unzip libnet-ldap-perl
-#
-#cd /opt/
-#wget https://github.com/Evolveum/slapdconf/archive/master.zip
-#unzip master.zip
-#cd slapdconf-master/
-#
-#./slapdconf add-module sssvlv
-#./slapdconf add-overlay dc=example,dc=com sssvlv
+  #apt-get install slapd ldap-utils wget unzip libnet-ldap-perl
+  #
+  #cd /opt/
+  #wget https://github.com/Evolveum/slapdconf/archive/master.zip
+  #unzip master.zip
+  #cd slapdconf-master/
+  #
+  #./slapdconf add-module sssvlv
+  #./slapdconf add-overlay dc=example,dc=com sssvlv
   mysql8:
     image: mysql:8.0.12
     ports:
-    - "3306:3306/tcp"
+      - "3306:3306/tcp"
     environment:
-    - MYSQL_ROOT_PASSWORD=root
-    - MYSQL_DATABASE=midpoint
-    - MYSQL_USER=midpoint
-    - MYSQL_PASSWORD=midpoint
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=midpoint
+      - MYSQL_USER=midpoint
+      - MYSQL_PASSWORD=midpoint
     volumes:
-    - "./mysql_8/conf.d:/etc/mysql/conf.d"
-    - "./mysql_8/mysql:/var/lib/mysql"
+      - "./mysql_8/conf.d:/etc/mysql/conf.d"
+      - "./mysql_8/mysql:/var/lib/mysql"
   postgres12:
     image: postgres:12.1
     ports:
@@ -57,33 +57,15 @@ services:
       - "18080:8080/tcp"
     environment:
       - DBCA_TOTAL_MEMORY=2048
-      - WEB_CONSOLE=true
+      - WEB_CONSOLE=false
     volumes:
       - "./oracle/oracle:/u01/app/oracle"
-#      - "oracle:/u01/app/oracle"
-    # hostname: localhost
-    # port: 1521
-    # sid: xe
-    # service name: xe
-    # username: system
-    # password: oracle
-    # ---
-    # http://localhost:8080/apex
-    # workspace: INTERNAL
-    # user: ADMIN
-    # password: 0Racle$
-  sqlserver:
-    image: microsoft/mssql-server-linux:2017-CU2
-    ports:
-      - "1433:1433/tcp"
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_PID=Developer
-      - SA_PASSWORD=qwer1234X!
-      - MSSQL_MEMORY_LIMIT_MB=2048
-    volumes:
-      - "mssql:/var/opt/mssql"
-#      - "./sqlserver/mssql:/var/opt/mssql" not supported at this time
+# hostname: localhost
+# port: 1521
+# sid: xe
+# service name: xe
+# username: system
+# password: oracle
   mariadb:
     image: mariadb:10.0.28
     ports:
@@ -103,26 +85,6 @@ services:
       - "8443:8443/tcp"
     volumes:
       - "./cas/cas:/etc/cas"
-  ldap1:
-    image: actualys/ldap:1.1
-    ports:
-      - "1389:389/tcp"
-    environment:
-      - LDAP_DOMAIN=example.com
-      - LDAP_PASSWORD=admin
-    volumes:
-      - "./openldap1/ldap:/var/lib/ldap"
-      - "./openldap1/slapd.d:/etc/ldap/slapd.d"
-  ldap2:
-    image: actualys/ldap:1.1
-    ports:
-      - "2389:389/tcp"
-    environment:
-      - LDAP_DOMAIN=example.com
-      - LDAP_PASSWORD=admin
-    volumes:
-      - "./openldap2/ldap:/var/lib/ldap"
-      - "./openldap2/slapd.d:/etc/ldap/slapd.d"
   dynamodb:
     command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
     image: "amazon/dynamodb-local:latest"
@@ -132,6 +94,3 @@ services:
     volumes:
       - "./dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
-volumes:
-  mssql:
-#  oracle:
